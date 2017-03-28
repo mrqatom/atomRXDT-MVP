@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.comtesting.atomtry.R;
 import com.example.comtesting.atomtry.base.baseFragment;
 import com.example.comtesting.atomtry.data.bean.UserLoginBean;
+import com.example.comtesting.atomtry.home.homeActivity;
 import com.example.comtesting.atomtry.register.RegisterActivity;
 
 /**
@@ -58,7 +59,8 @@ public class LoginFragment extends baseFragment implements LoginContract.View, V
     @Override
     public void showLoginSuccess(UserLoginBean bean) {
         if (progressDialog.isShowing()) disMissProgressDialog();
-        showToast("登陆成功:\n"+bean.getUser().getNick_name());
+        Intent intent = new Intent(getActivity(), homeActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -67,14 +69,7 @@ public class LoginFragment extends baseFragment implements LoginContract.View, V
         showToast(message);
     }
 
-    @Override
-    public void showLoginError() {
-        if (progressDialog.isShowing()) disMissProgressDialog();
-        showToast("账号密码错误，请重试");
-    }
-
-    @Override
-    public void showRegisterUi() {
+    private void showRegisterUi() {
         Intent intent = new Intent(getActivity(), RegisterActivity.class);
         startActivity(intent);
     }

@@ -9,7 +9,8 @@ import com.example.comtesting.atomtry.request.parameter.userParameter;
  */
 
 public interface mHttpRequest {
-    <T>void request(String url,mCallBack<T> callBack);
-    <T>void request(String url, HttpParameter param, mCallBack<T> callBack);
+    <T> void request(String url, Class clazz, mCallBack<T> callBack);
+
+    <T> void request(String url, HttpParameter param, mCallBack<T> callBack);
 
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 import com.example.comtesting.atomtry.R;
+import com.example.comtesting.atomtry.base.BaseActivity;
 import com.example.comtesting.atomtry.utils.ActivityUtils;
 
 import javax.inject.Inject;
@@ -13,7 +14,7 @@ import javax.inject.Inject;
  * @author atom
  * 登录activity
  */
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
     @Inject
     LoginPresenter presenter;
     @Override

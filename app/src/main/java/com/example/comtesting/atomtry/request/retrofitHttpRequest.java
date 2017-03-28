@@ -65,25 +65,42 @@ public class retrofitHttpRequest implements mHttpRequest {
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T> void request(String url, final mCallBack<T> callBack) {
+    public <T> void request(String url, final Class clazz, final mCallBack<T> callBack) {
         api.getResponse(url)
-                .subscribeOn(Schedulers.io())
                 .map(new Function<HttpResult, T>() {
+                    @SuppressWarnings("unchecked")
                     @Override
                     public T apply(HttpResult tHttpResult) throws Exception {
                         if (tHttpResult.isStatus()) {
-                            return (T) tHttpResult.getData();
+                            return (T) new Gson().fromJson(tHttpResult.getData().toString(), clazz);
+                        } else {
+                            throw new Exception(tHttpResult.getMessage());
                         }
-                        callBack.fail(tHttpResult.getStatusCode());
-                        return null;
                     }
                 })
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer() {
+                .onErrorResumeNext(new RxjavaFactory.HttpResponseFunc<T>())
+                .compose(RxjavaFactory.<T>io_main_trasformer())
+                .subscribe(new Observer<T>() {
                     @Override
-                    public void accept(Object o) throws Exception {
-                        callBack.success((T) o);
+                    public void onSubscribe(Disposable d) {
+                        Log.e("retrofitHttpRequest", "onSubscribe: ");
+                    }
+
+                    @Override
+                    public void onNext(T value) {
+                        if (value != null)
+                            callBack.success(value);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        callBack.fail(e.getMessage());
+                        Log.e("retrofitHttpRequest", "onError: " + e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.e("retrofitHttpRequest", "onComplete: ");
                     }
                 });
     }

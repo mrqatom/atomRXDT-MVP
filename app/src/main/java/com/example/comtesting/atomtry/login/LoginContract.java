@@ -17,10 +17,6 @@ public interface LoginContract {
 
         void showLoginFail(String message);
 
-        void showLoginError();
-
-        void showRegisterUi();
-
         boolean isActive();
 
     }
