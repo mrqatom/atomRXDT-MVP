@@ -19,7 +19,9 @@ public interface LoginContract {
         void showLoginFail(String message);
 
         boolean isActive();
+
         boolean isRemember();
+
         void initUser(userLogin user);
     }
 
