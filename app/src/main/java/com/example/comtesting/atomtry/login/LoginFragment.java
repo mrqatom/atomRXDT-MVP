@@ -8,14 +8,18 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.comtesting.atomtry.R;
 import com.example.comtesting.atomtry.base.baseFragment;
 import com.example.comtesting.atomtry.data.bean.UserLoginBean;
+import com.example.comtesting.atomtry.data.greendao.userLogin;
 import com.example.comtesting.atomtry.home.homeActivity;
 import com.example.comtesting.atomtry.register.RegisterActivity;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Created by atom on 2017/2/24.
@@ -26,6 +30,7 @@ public class LoginFragment extends baseFragment implements LoginContract.View, V
     private LoginPresenter mPresenter;
     private EditText etUser;
     private EditText etPassword;
+    private CheckBox cbRememberPassword;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,12 +42,14 @@ public class LoginFragment extends baseFragment implements LoginContract.View, V
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_login, container, false);
         initView(v);
+        mPresenter.init();
         return v;
     }
 
     private void initView(View v) {
         etUser = (EditText) v.findViewById(R.id.login_et_user);
         etPassword = (EditText) v.findViewById(R.id.login_et_password);
+        cbRememberPassword = (CheckBox) v.findViewById(R.id.login_cb_remember);
         v.findViewById(R.id.login_btn_login).setOnClickListener(this);
         v.findViewById(R.id.login_btn_register).setOnClickListener(this);
     }
@@ -80,8 +87,22 @@ public class LoginFragment extends baseFragment implements LoginContract.View, V
     }
 
     @Override
+    public boolean isRemember() {
+        return cbRememberPassword.isChecked();
+    }
+
+    @Override
+    public void initUser(userLogin user) {
+        if (user.getIsRemember()){
+            cbRememberPassword.setChecked(true);
+            etPassword.setText(user.getPassword());
+        }
+        etUser.setText(user.getUserName());
+    }
+
+    @Override
     public void setPresenter(LoginPresenter presenter) {
-        this.mPresenter = presenter;
+        this.mPresenter = checkNotNull(presenter);
     }
 
     @Override

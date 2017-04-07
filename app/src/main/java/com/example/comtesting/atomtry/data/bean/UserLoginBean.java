@@ -1,9 +1,9 @@
 package com.example.comtesting.atomtry.data.bean;
 
+
 /**
  * Created by atom on 2017/2/24.
  */
-
 public class UserLoginBean {
         /**
          * user : {"id":"87","hxun":"18981375816","uuid":"ab4df1a0-6ad1-11e6-b989-55a333335897","nick_name":"pang","cover":"e940fbcd-8b5a-4f6c-94ae-d35baf047884.jpg","image":"e940fbcd-8b5a-4f6c-94ae-d35baf047884.jpg","real_name":"Ho","tel":"18981375816","birthday":"2000-01-09","constellation":"","shuxiang":"","age":"16","sex":"","emotion":"","motto":"你的肉体在我心","profession":"","school":"","province":"510000","city":"511100","district":"511111","blood_type":"","Authorization":"a9c299a614de15626c85dde39ba07319","meta":{"$1":"true","$0":"false"}}
