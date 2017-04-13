@@ -1,10 +1,5 @@
 package com.example.comtesting.atomtry.request;
 
-
-
-import com.example.comtesting.atomtry.request.parameter.HttpParameter;
-import com.example.comtesting.atomtry.request.parameter.userParameter;
-
 import java.util.Map;
 
 import io.reactivex.Observable;

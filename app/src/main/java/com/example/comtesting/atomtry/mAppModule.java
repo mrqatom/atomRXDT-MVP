@@ -2,6 +2,9 @@ package com.example.comtesting.atomtry;
 
 import android.content.Context;
 
+import com.example.comtesting.atomtry.request.HttpRequestFactory;
+import com.example.comtesting.atomtry.request.mHttpRequest;
+
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
@@ -19,29 +22,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 @Module
 public class mAppModule {
-//    private Context mContext;
-//
-//    public mAppModule(Context mContext) {
-//        this.mContext = mContext;
-//    }
+    private Context mContext;
 
-//    @Singleton
-//    @Provides
-//    public OkHttpClient provideOkHttpClient() {
-//        return new OkHttpClient.Builder()
-//                .connectTimeout(3, TimeUnit.SECONDS)
-//                .build();
-//    }
-//
-//    @Singleton
-//    @Provides
-//    public Retrofit provideRetrofit(OkHttpClient client) {
-//        return new Retrofit.Builder()
-//                .client(client)
-//                .baseUrl("http://139.196.54.139/Home/")
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-//                .build();
-//    }
+    public mAppModule(Context mContext) {
+        this.mContext = mContext;
+    }
+
+    @Singleton
+    @Provides
+    public mHttpRequest provideHttpRequest() {
+        return HttpRequestFactory.getRetrofitHttpRequest();
+    }
 
 }

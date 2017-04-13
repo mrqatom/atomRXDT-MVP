@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.example.comtesting.atomtry.R;
 import com.example.comtesting.atomtry.base.BaseActivity;
+import com.example.comtesting.atomtry.mApplication;
 import com.example.comtesting.atomtry.utils.ActivityUtils;
 
 import javax.inject.Inject;
@@ -35,6 +36,7 @@ public class LoginActivity extends BaseActivity {
             ActivityUtils.addFragment(getSupportFragmentManager(),fragment,R.id.login_content);
         }
         DaggerLoginComponent.builder()
+                .mAppComponent(mApplication.getAppComponent())
                 .loginModule(new LoginModule(fragment)).build().inject(this);
     }
 }

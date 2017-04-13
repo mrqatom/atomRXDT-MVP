@@ -28,7 +28,7 @@ public class mApplication extends Application {
         initGreenDao();
         retrofitHttpRequest.init();
         mAppComponent = DaggermAppComponent.builder()
-                .mAppModule(new mAppModule()).build();
+                .mAppModule(new mAppModule(mContext)).build();
     }
 
     public static Context getmContext() {
@@ -40,7 +40,7 @@ public class mApplication extends Application {
     }
 
     private void initGreenDao(){
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "word_db" );
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "atom_db" );
         Database db = helper.getReadableDb();
         daoSession = new DaoMaster(db).newSession();
     }
