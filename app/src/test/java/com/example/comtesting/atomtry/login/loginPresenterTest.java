@@ -3,21 +3,19 @@ package com.example.comtesting.atomtry.login;
 import com.example.comtesting.atomtry.data.bean.UserLoginBean;
 import com.example.comtesting.atomtry.data.greendao.userLogin;
 import com.example.comtesting.atomtry.data.repository.UserRepository;
-import com.example.comtesting.atomtry.request.HttpRequestFactory;
 import com.example.comtesting.atomtry.request.mCallBack;
 import com.example.comtesting.atomtry.request.mHttpRequest;
 import com.example.comtesting.atomtry.request.parameter.HttpParameter;
-import com.example.comtesting.atomtry.request.retrofitHttpRequest;
-
-import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
+import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import static junit.framework.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Matchers.anyString;
@@ -58,12 +56,11 @@ public class loginPresenterTest {
         mLoginPresenter.login("233", "2333");
         verify(mView).showLoginDialog();
         verify(mHttpRequest).request(anyString(), any(HttpParameter.class), mCallbackCaptor.capture());
-        ArgumentCaptor<UserLoginBean> UserLoginBeanCaptor = ArgumentCaptor.forClass(UserLoginBean.class);
-        mCallbackCaptor.getValue().success(UserLoginBeanCaptor.capture());
-//        verify(mView).showLoginSuccess(UserLoginBeanCaptor.getValue());
+        mCallbackCaptor.getValue().success(any(UserLoginBean.class));
+        verify(mView).showLoginSuccess(any(UserLoginBean.class));
         verify(mUserRepository).queryUser(anyLong());
         ArgumentCaptor<userLogin> userLoginCaptor = ArgumentCaptor.forClass(userLogin.class);
         verify(mUserRepository).upDataUser(userLoginCaptor.capture(), anyLong());
-        Assert.assertEquals("233", userLoginCaptor.getValue().getUserName());
+        assertEquals("233", userLoginCaptor.getValue().getUserName());
     }
 }
