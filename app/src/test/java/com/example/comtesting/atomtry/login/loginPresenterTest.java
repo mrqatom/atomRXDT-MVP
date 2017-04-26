@@ -11,16 +11,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
-import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static junit.framework.Assert.assertEquals;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyLong;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static junit.framework.Assert.*;
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by atom on 2017/4/8.
@@ -28,6 +24,8 @@ import static org.mockito.Mockito.when;
  */
 
 public class loginPresenterTest {
+    public static final String USER_NAME = "userName";
+    public static final String PASSWORD = "password";
     @Mock
     private LoginContract.View mView;
     @Mock
@@ -50,17 +48,19 @@ public class loginPresenterTest {
     @SuppressWarnings("unchecked")
     @Test
     public void testLogin() {
-        when(mUserRepository.queryUser(anyLong())).thenReturn(new userLogin());
+        when(mUserRepository.queryUser(anyLong())).thenReturn(any(userLogin.class));
 //        doNothing().when(mHttpRequest)
 //                .request(anyString(),any(HttpParameter.class),mCallbackCaptor.capture());
-        mLoginPresenter.login("233", "2333");
+        mLoginPresenter.login(USER_NAME, PASSWORD);
+
         verify(mView).showLoginDialog();
         verify(mHttpRequest).request(anyString(), any(HttpParameter.class), mCallbackCaptor.capture());
         mCallbackCaptor.getValue().success(any(UserLoginBean.class));
         verify(mView).showLoginSuccess(any(UserLoginBean.class));
         verify(mUserRepository).queryUser(anyLong());
+
         ArgumentCaptor<userLogin> userLoginCaptor = ArgumentCaptor.forClass(userLogin.class);
         verify(mUserRepository).upDataUser(userLoginCaptor.capture(), anyLong());
-        assertEquals("233", userLoginCaptor.getValue().getUserName());
+        assertEquals(USER_NAME, userLoginCaptor.getValue().getUserName());
     }
 }
