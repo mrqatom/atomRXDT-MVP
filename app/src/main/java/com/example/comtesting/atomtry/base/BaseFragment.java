@@ -6,15 +6,19 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
+import com.example.comtesting.atomtry.login.LoginPresenter;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 
 /**
- * Created by atom on 2017/3/16.
+ *
+ * @author atom
+ * @date 2017/3/16
  */
 
-public class baseFragment extends RxFragment {
+public class BaseFragment<P extends BasePresenter> extends RxFragment{
     public ProgressDialog progressDialog;
     Context mContext;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,4 +42,5 @@ public class baseFragment extends RxFragment {
     public void showToast(String content){
         Toast.makeText(mContext,content,Toast.LENGTH_SHORT).show();
     }
+
 }

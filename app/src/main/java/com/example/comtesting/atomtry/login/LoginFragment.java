@@ -1,19 +1,15 @@
 package com.example.comtesting.atomtry.login;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
-
 import com.example.comtesting.atomtry.R;
-import com.example.comtesting.atomtry.base.baseFragment;
+import com.example.comtesting.atomtry.base.BaseFragment;
 import com.example.comtesting.atomtry.data.bean.UserLoginBean;
 import com.example.comtesting.atomtry.data.greendao.userLogin;
 import com.example.comtesting.atomtry.home.homeActivity;
@@ -26,17 +22,19 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * 登录fragment
  */
 
-public class LoginFragment extends baseFragment implements LoginContract.View, View.OnClickListener {
-    private LoginPresenter mPresenter;
+public class LoginFragment extends BaseFragment<LoginPresenter> implements LoginContract.View, View.OnClickListener {
     private EditText etUser;
     private EditText etPassword;
     private CheckBox cbRememberPassword;
-
+    public LoginPresenter mPresenter;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
+    @Override
+    public void setPresenter(LoginPresenter presenter) {
+        this.mPresenter = presenter;
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -101,11 +99,6 @@ public class LoginFragment extends baseFragment implements LoginContract.View, V
     }
 
     @Override
-    public void setPresenter(LoginPresenter presenter) {
-        this.mPresenter = checkNotNull(presenter);
-    }
-
-    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.login_btn_login:
@@ -117,4 +110,6 @@ public class LoginFragment extends baseFragment implements LoginContract.View, V
                 break;
         }
     }
+
+
 }

@@ -25,7 +25,7 @@ public interface LoginContract {
         void initUser(userLogin user);
     }
 
-    interface presenter extends BasePresenter {
+    interface presenter{
         void login(String userName, String password);
     }
 }

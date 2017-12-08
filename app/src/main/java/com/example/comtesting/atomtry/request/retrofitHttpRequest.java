@@ -14,10 +14,13 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
+import org.reactivestreams.Subscription;
+
 import java.io.File;
 import java.lang.reflect.ParameterizedType;
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
@@ -150,6 +153,7 @@ public class retrofitHttpRequest implements mHttpRequest {
                         Log.e("retrofitHttpRequest", "onComplete: ");
                     }
                 });
+        Log.e("retrofitHttpRequest", "return: ");
     }
 
     //    private void initInject() {

@@ -34,7 +34,7 @@ public class LoginScreenTest {
     @Before
     public void setUp(){
         //将rx异步转同步
-//        RxjavaFactory.asyncToSync();
+        RxjavaFactory.asyncToSync();
     }
     @Test
     public void RegisterTest() {

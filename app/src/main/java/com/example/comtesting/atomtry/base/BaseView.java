@@ -6,6 +6,6 @@ package com.example.comtesting.atomtry.base;
  * view层基础接口
  */
 
-public interface BaseView<T> {
-    void setPresenter(T presenter);
+public interface BaseView<P extends BasePresenter> {
+    void setPresenter(P presenter);
 }
