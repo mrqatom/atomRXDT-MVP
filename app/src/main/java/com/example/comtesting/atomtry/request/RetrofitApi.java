@@ -8,7 +8,9 @@ import retrofit2.http.POST;
 import retrofit2.http.Url;
 
 /**
- * Created by atom on 2017/3/14.
+ *
+ * @author atom
+ * @date 2017/3/14
  * Retrofit API
  */
 
